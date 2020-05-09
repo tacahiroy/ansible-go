@@ -1,0 +1,31 @@
+# ansible-go
+# Author: Takahiro Yoshihara <tacahiroy at gmail.com>
+# License: Apache License 2.0
+
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  become_user: root
+  vars:
+    go_version: 1.14.2
+  
+  tasks:
+    - name: Unarchive the binary
+      unarchive:
+        src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz" 
+        dest: /usr/local/bin
+        remote_src: yes
+        extra_opts:
+          - --transform
+          - "s/^go/go{{ go_version }}/"
+
+    - name: update-alternatives
+      alternatives:
+        name: "{{ item }}"
+        path: "/usr/local/bin/go{{ go_version }}/bin/{{ item }}"
+        link: "/usr/local/bin/{{ item }}"
+        priority: 100
+      with_items:
+        - go
+        - gofmt
