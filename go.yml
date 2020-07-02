@@ -8,7 +8,7 @@
   become: yes
   become_user: root
   vars:
-    go_version: 1.14.2
+    go_version: 1.14.4
   
   tasks:
     - name: Unarchive the binary
