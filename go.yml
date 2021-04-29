@@ -8,12 +8,12 @@
   become: yes
   become_user: root
   vars:
-    go_version: 1.15
-  
+    go_version: 1.16.3
+
   tasks:
     - name: Unarchive the binary
       unarchive:
-        src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz" 
+        src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
         dest: /usr/local/bin
         remote_src: yes
         extra_opts:
